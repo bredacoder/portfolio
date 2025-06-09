@@ -72,11 +72,7 @@ function Header() {
 
 				{/* Actions - Right side */}
 				<div className="flex items-center justify-end gap-4">
-					<GitStarButton
-						href="https://github.com/bredacoder"
-						stars={10}
-						className="hidden md:flex"
-					/>
+					<GitStarButton className="hidden md:flex" />
 					<Sheet>
 						<SheetTrigger asChild>
 							<Button
@@ -114,11 +110,7 @@ function Header() {
 								>
 									Contact
 								</Link>
-								<GitStarButton
-									href="https://github.com/bredacoder"
-									stars={10}
-									className="w-full"
-								/>
+								{/* <GitStarButton className="w-full" /> */}
 							</nav>
 						</SheetContent>
 					</Sheet>
