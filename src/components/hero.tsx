@@ -8,7 +8,7 @@ import { TextGenerateEffect } from "./ui/text-generate-effect";
 function Hero() {
 	const scrollToNextSection = () => {
 		window.scrollTo({
-			top: window.innerHeight,
+			top: window.innerHeight - 100,
 			behavior: "smooth",
 		});
 	};
@@ -29,8 +29,8 @@ function Hero() {
 				/>
 
 				<TextGenerateEffect
-					words="Forever learning. Always building. Never complacent. Solving tomorrow's problems today."
-					className="mt-4 xs max-w-lg md:max-w-2xl"
+					words={["Turning ideas into code, and code into value."]}
+					className="mt-4 max-w-lg md:max-w-2xl"
 				/>
 
 				<div className="flex items-center gap-4 mt-8">

@@ -9,15 +9,23 @@ export const TextGenerateEffect = ({
 	filter = true,
 	duration = 0.5,
 }: {
-	words: string;
+	words: string | string[];
 	className?: string;
 	filter?: boolean;
 	duration?: number;
 }) => {
 	const [scope, animate] = useAnimate();
-	const wordsArray = words.split(" ");
+
+	// Handle both string and array inputs
+	const phrasesArray = Array.isArray(words) ? words : [words];
 
 	useEffect(() => {
+		// Calculate stagger delay based on total words across all phrases
+		const totalWords = phrasesArray.reduce(
+			(total, phrase) => total + phrase.split(" ").length,
+			0,
+		);
+
 		animate(
 			"span",
 			{
@@ -29,22 +37,32 @@ export const TextGenerateEffect = ({
 				delay: stagger(0.2),
 			},
 		);
-	}, [animate, filter, duration]);
+	}, [animate, filter, duration, phrasesArray]);
 
 	const renderWords = () => {
 		return (
 			<motion.div ref={scope}>
-				{wordsArray.map((word) => {
+				{phrasesArray.map((phrase, phraseIndex) => {
+					const wordsArray = phrase.split(" ");
 					return (
-						<motion.span
-							key={word}
-							className="dark:text-white text-black opacity-0"
-							style={{
-								filter: filter ? "blur(10px)" : "none",
-							}}
+						<div
+							key={`phrase-${phraseIndex}-${phrase.slice(0, 10)}`}
+							className="block"
 						>
-							{word}{" "}
-						</motion.span>
+							{wordsArray.map((word, wordIndex) => {
+								return (
+									<motion.span
+										key={`word-${phraseIndex}-${wordIndex}-${word}`}
+										className="dark:text-white text-black opacity-0"
+										style={{
+											filter: filter ? "blur(10px)" : "none",
+										}}
+									>
+										{word}{" "}
+									</motion.span>
+								);
+							})}
+						</div>
 					);
 				})}
 			</motion.div>
